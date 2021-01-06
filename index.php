@@ -45,12 +45,13 @@
 <?php
 	// session_destroy();
 	if (isset($_POST['submit'])) {
-		if(is_int($_POST['idNum']))
+		if(is_numeric($_POST['idNum']))
 		{	
 			$result = $conn->query("SELECT * FROM employee WHERE employeeID=".$_POST['idNum']);
 
 			if(mysqli_num_rows($result))
 			{
+				$_SESSION['user'] = $result->fetch_assoc();
 				header("location: home.php");
 			}
 			else
