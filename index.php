@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<div class="container border mt-5 p-5">
-			<h1 class="display-3 text-center">ML Scheduling</h1>
+			<h1 class="display-3 text-center">ML Engineering <br>Scheduling System</h1>
 
 			<div class="container">
 				<form action="index.php" method="post">
