@@ -1,5 +1,12 @@
 <?php
 	session_start();
+	if(!isset($_SESSION['user']))
+		header("location: index.php");
+
+	if($_SESSION['error'] == "login")
+	{
+		$_SESSION['error'] = "";	
+	}
 
 	include_once "db.php";
 ?>
@@ -26,18 +33,20 @@
 
 		<div class="container border mt-5 p-3">
 			<div class="row">
-				<div class="col p-1">
-					<a href="" class="btn btn-secondary w-100">Client List</a>
+				<div class="col p-1" align="right">
+					<a href="client.php" class="btn btn-secondary w-75">Client List</a>
 				</div>
-				<div class="col p-1">
-					<a href="" class="btn btn-secondary w-100">Project List</a>
+				<div class="col p-1" align="left">
+					<a href="" class="btn btn-secondary w-75">Project List</a>
 				</div>
 			</div>
 
-			<div class="row mt-5">
-				<!-- <div class="col p-1"> -->
-					<a href="" class="btn btn-primary w-50 mx-auto">New Schedule</a>
-				<!-- </div> -->
+			<div class="container m-3 p-3" align="center">
+				<h1>Schedule List</h1>
+			</div>
+
+			<div class="row">
+				<a href="" class="btn btn-primary w-50 mx-auto">New Schedule</a>
 			</div>
 			<div class="table-responsive-xl">
 				<table class="table table-stripped table-hover table-bordered table-sm mt-3">

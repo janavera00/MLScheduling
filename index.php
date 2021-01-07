@@ -57,6 +57,7 @@
 			if(mysqli_num_rows($result))
 			{
 				$_SESSION['user'] = $result->fetch_assoc();
+				$_SESSION['error'] = "";
 				header("location: home.php");
 			}
 			else
