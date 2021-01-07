@@ -183,7 +183,7 @@
 
 		<div class="container mt-5 p-3" align="center">
 			<button class="btn btn-success" onclick="showElement('doneContainer')">
-				<h1>Previous Schedules List</h1>
+				<h1>Previous Schedule List</h1>
 			</button>
 		</div>
 		<div class="container border p-3" id="doneContainer" style="display: none;">
