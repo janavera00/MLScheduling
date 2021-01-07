@@ -44,7 +44,91 @@
 					</div>
 				</form>
 			</div>
+
+			<div class="container border p-3">
+				<p class="text-secondary">For Testing Purposes:</p>
+				<div class="row">
+					<a onclick="showElement('new')" class="btn btn-secondary w-25 mx-auto">Register new user</a>
+				</div>
+
+				<div class="container w-50 mt-3 p-2 border" id="new" style="display: <?php echo $_SESSION['error']==""?"none":"display"; ?>;">
+					<form action="add.php?employee=0" method="post">
+						<div class="form-group">
+							<label>EmployeeID</label>
+							<input type="text" name="id" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" name="name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Birthdate</label>
+							<input type="date" name="bday" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Gender</label>
+							<select name="gender" class="form-control" required>
+								<option value="" selected disabled hidden>Click to show options</option>
+								<option value="M">Male</option>
+								<option value="F">Female</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Job</label>
+							<input type="text" name="job" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<input type="text" name="address" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Contact</label>
+							<input type="text" name="contact" class="form-control" minlength="11" maxlength="11" placeholder="09xxxxxxxxx" required>
+						</div>
+						<div class="row form-group mt-3">
+							<div class="col">	
+								<input type="reset" class="btn btn-danger form-control">
+							</div>
+							<div class="col">	
+								<input type="submit" name="submit" class="btn btn-success form-control">
+							</div>
+						</div>
+						<?php if($_SESSION['error'] != ""){ ?>
+							<div class="alert alert-danger m-3">
+								<strong>Register Error:</strong> 
+								<?php
+									if($_SESSION['error'] == "contact")
+									{
+										echo "Please enter a valid contact number";
+									}
+									else if($_SESSION['error'] == "duplicate")
+									{
+										echo "Employee already exist in the system";
+									}
+								?>
+							</div>
+						<?php } ?>
+					</form>
+				</div>
+			</div>
 		</div>
+
+
+		<script type="text/javascript">
+			function showElement(id)
+			{
+				var disp = document.getElementById(id).style.display; 
+				
+				if(disp == "none")
+				{
+					document.getElementById(id).style.display = "block";
+				}
+				else
+				{
+					document.getElementById(id).style.display = "none";
+				}
+			}
+		</script>
 	</body>
 </html>
 <?php
