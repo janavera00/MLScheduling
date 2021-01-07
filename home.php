@@ -49,26 +49,51 @@
 				<a onclick="showElement('new')" class="btn btn-primary w-50 mx-auto">New Schedule</a>
 			</div>
 			<div class="container w-50 mt-3 p-2 border" id="new" style="display: <?php echo $_SESSION['error']==""?"none":"display"; ?>;">
-				<form action="add.php?client=0" method="post">
+				<form action="add.php?schedule=0" method="post">
 
 					<div class="form-group">
 						<label for="name">Project</label>
-						<input type="text" name="projName" class="form-control" required>
+						<select class="form-control" name="project" required>
+							<option value="" selected disabled hidden>Click to show options</option>
+							<?php 
+								$query = "SELECT c.name, p.projectNo, p.location, p.description FROM project p INNER JOIN client c ON p.client = c.clientNo ORDER BY c.name";
+								$result = $conn->query($query);
+
+								if(mysqli_num_rows($result)){
+									while ($row = $result->fetch_assoc()) {
+										$option = $row['name']." | ".$row['description']." | ".$row['location'];
+										echo "<option value=".$row['projectNo'].">".$option."</option>";
+									}	
+								}
+							?>
+						</select>
 					</div>
 
 					<div class="form-group">
 						<label for="address">Employee Assigned</label>
-						<input type="text" name="employee" class="form-control" required>
+						<select class="form-control" name="employee" required>
+							<option value="" selected disabled hidden>Click to show options</option>
+							<?php 
+								$query = "SELECT * FROM employee ORDER BY name";
+								$result = $conn->query($query);
+
+								if(mysqli_num_rows($result)){
+									while ($row = $result->fetch_assoc()) {
+										echo "<option value=".$row['employeeID'].">".$row['name']." | ".$row['job']."</option>";
+									}	
+								}
+							?>
+						</select>
 					</div>
 
 					<div class="form-group">
 						<label for="contact">Date</label>
-						<input type="date" name="date" class="form-control" maxlength="11" minlength="11" id="numberInput" placeholder="09xxxxxxxxx" required>
+						<input type="date" name="date" class="form-control" required>
 					</div>
 
 					<div class="form-group">
 						<label for="contact">Time</label>
-						<input type="time" name="time" class="form-control" maxlength="11" minlength="11" id="numberInput" placeholder="09xxxxxxxxx" required>
+						<input type="time" name="time" class="form-control" required>
 					</div>
 
 					<div class="row form-group mt-3">

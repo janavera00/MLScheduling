@@ -58,7 +58,7 @@
 						<input type="text" name="location" class="form-control">
 					</div>
 					<div class="form-group">
-						<label for="contact">Description</label>
+						<label for="contact">Job</label>
 						<input type="text" name="description" class="form-control">
 					</div>
 					<div class="row form-group mt-3">
@@ -90,7 +90,7 @@
 							<th class="col">No.</th>
 							<th class="col">Client</th>
 							<th class="col">Location</th>
-							<th class="col">Description</th>
+							<th class="col">Job</th>
 						</tr>
 					</thead>
 				<?php 

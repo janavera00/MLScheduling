@@ -57,6 +57,16 @@
 			header("location: project.php");
 		}
 	}
+	else if(isset($_GET['schedule']))
+	{
+		$insert = "INSERT INTO schedule VALUES (".$_POST['project'].", ".$_POST['employee'].", '".$_POST['date']."', '".$_POST['time']."', 'pending')";
+
+		if($conn->query($insert))
+		{
+			$_SESSION['error'] = "";
+			header("location: project.php");
+		}
+	}
 
 	function checkContact($contact){
 		return $contact[0]==0 && $contact[1]==9 && is_numeric($contact);
