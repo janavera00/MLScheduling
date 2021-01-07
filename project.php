@@ -3,19 +3,17 @@
 	if(!isset($_SESSION['user']))
 		header("location: index.php");
 
-	if($_SESSION['error'] == "login")
-	{
-		$_SESSION['error'] = "";	
-	}
-
 	include_once "db.php";
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+
 
 		<title>ML Scheduling</title>
 	</head>
@@ -37,40 +35,32 @@
 					<a href="client.php" class="btn btn-secondary w-75">Client List</a>
 				</div>
 				<div class="col p-1" align="left">
-					<a href="project.php" class="btn btn-secondary w-75">Project List</a>
+					<a href="home.php" class="btn btn-secondary w-75">Schedule List</a>
 				</div>
 			</div>
 
 			<div class="container m-3 p-3" align="center">
-				<h1>Schedule List</h1>
+				<h1>Project List</h1>
 			</div>
 
 			<div class="row">
-				<a onclick="showElement('new')" class="btn btn-primary w-50 mx-auto">New Schedule</a>
+				<a onclick="showElement('new')" class="btn btn-primary w-50 mx-auto">New Project</a>
 			</div>
+
 			<div class="container w-50 mt-3 p-2 border" id="new" style="display: <?php echo $_SESSION['error']==""?"none":"display"; ?>;">
-				<form action="add.php?client=0" method="post">
-
+				<form action="add.php?project=0" method="post">
 					<div class="form-group">
-						<label for="name">Project</label>
-						<input type="text" name="projName" class="form-control" required>
+						<label for="name">Client</label>
+						<input type="text" name="client" class="form-control">
 					</div>
-
 					<div class="form-group">
-						<label for="address">Employee Assigned</label>
-						<input type="text" name="employee" class="form-control" required>
+						<label for="address">Location</label>
+						<input type="text" name="location" class="form-control">
 					</div>
-
 					<div class="form-group">
-						<label for="contact">Date</label>
-						<input type="date" name="date" class="form-control" maxlength="11" minlength="11" id="numberInput" placeholder="09xxxxxxxxx" required>
+						<label for="contact">Description</label>
+						<input type="text" name="description" class="form-control">
 					</div>
-
-					<div class="form-group">
-						<label for="contact">Time</label>
-						<input type="time" name="time" class="form-control" maxlength="11" minlength="11" id="numberInput" placeholder="09xxxxxxxxx" required>
-					</div>
-
 					<div class="row form-group mt-3">
 						<div class="col">	
 							<input type="reset" class="btn btn-danger form-control">
@@ -79,18 +69,13 @@
 							<input type="submit" name="submit" class="btn btn-success form-control">
 						</div>
 					</div>
-
 					<?php if($_SESSION['error'] != ""){ ?>
 						<div class="alert alert-danger m-3">
 							<strong>Register Error:</strong> 
 							<?php
-								if($_SESSION['error'] == "contact")
+								if($_SESSION['error'] == "client")
 								{
-									echo "Please enter a valid contact number";
-								}
-								else if($_SESSION['error'] == "duplicate")
-								{
-									echo "Client already exist";
+									echo "Client doesn't exist yet in the system";
 								}
 							?>
 						</div>
@@ -102,21 +87,14 @@
 				<table class="table table-stripped table-hover table-bordered table-sm mt-3">
 					<thead>
 						<tr>
-							<th class="col-3">Client</th>
-							<th class="col-1">Project</th>
-							<th class="col-3">Location</th>
-							<th class="col-2">Employee Assigned</th>
-							<th class="col-2">Date</th>
-							<th class="col-1">Time</th>
+							<th class="col">No.</th>
+							<th class="col">Client</th>
+							<th class="col">Location</th>
+							<th class="col">Description</th>
 						</tr>
 					</thead>
 				<?php 
-					$query = "SELECT client.name AS client, project.description AS project, project.location AS location, employee.name AS employee, schedule.date, schedule.time 
-								FROM schedule 
-								INNER JOIN project ON project.projectNo = schedule.project
-								INNER JOIN employee ON employee.employeeID = schedule.employee
-								INNER JOIN client ON client.clientNo = project.client 
-								WHERE schedule.status='pending'";
+					$query = "SELECT client.name, project.projectNo, project.location, project.description FROM project INNER JOIN client ON project.client = client.clientNo";
 					$Result = $conn->query($query);
 
 					while ($Rows = $Result->fetch_assoc()) 
@@ -124,18 +102,10 @@
 						?>
 						<tbody>
 							<tr>
-								<td><?php echo $Rows['client']; ?></td>
-								<td><?php echo $Rows['project']; ?></td>
+								<td><?php echo $Rows['projectNo']; ?></td>
+								<td><?php echo $Rows['name']; ?></td>
 								<td><?php echo $Rows['location']; ?></td>
-								<td><?php echo $Rows['employee']; ?></td>
-								<td><?php
-									$date = date("D<\b\\r>M d, Y", strtotime($Rows['date']));
-									echo $date; 
-								?></td>
-								<td><?php 
-									$time = date("h:i a", strtotime($Rows['time']));
-									echo $time; 
-								?></td>
+								<td><?php echo $Rows['description']; ?></td>
 							</tr>
 						</tbody>
 						<?php

@@ -4,8 +4,6 @@
 		header("location: index.php");
 
 	include_once "db.php";
-
-	$_SESSION['error'] = "";
 ?>
 
 
@@ -37,7 +35,7 @@
 					<a href="home.php" class="btn btn-secondary w-75">Schedule List</a>
 				</div>
 				<div class="col p-1" align="left">
-					<a href="" class="btn btn-secondary w-75">Project List</a>
+					<a href="project.php" class="btn btn-secondary w-75">Project List</a>
 				</div>
 			</div>
 
@@ -50,7 +48,7 @@
 			</div>
 
 			<div class="container w-50 mt-3 p-2 border" id="new" style="display: <?php echo $_SESSION['error']==""?"none":"display"; ?>;">
-				<form action="add.php?client" method="post">
+				<form action="add.php?client=0" method="post">
 					<div class="form-group">
 						<label for="name">Name</label>
 						<input type="text" name="name" class="form-control" required>
