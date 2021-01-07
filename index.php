@@ -20,23 +20,28 @@
 
 			<div class="container">
 				<form action="index.php" method="post">
-					<div class="row p-2 m-5">
-						<div class="col">
-							ID Number: 
+					<div class="container">
+						<div class="col form-group p-5">
+							<div class="row">
+								<label for="idNum" class="m-2">ID Number:</label>
+							</div>
+							<div class="row">
+								<div class="col">
+									<input type="text" name="idNum" id="idNum" class="form-control m-2">
+								</div>
+								<div class="col-2">
+									<input type="submit" name="submit" value="Login" class="btn btn-primary m-2">
+								</div>
+							</div>
 						</div>
-						<div class="col">
-							<input type="text" name="idNum" class="container-fluid">
-						</div>
-						<div class="col">
-							<input type="submit" name="submit">
-						</div>
-					</div>
+					
 
-					<?php if($_SESSION['error'] == "login"){ ?>
-						<div class="alert alert-danger">
-							<strong>Login Error:</strong> Employee not found
-						</div>
-					<?php } ?>
+						<?php if($_SESSION['error'] == "login"){ ?>
+							<div class="alert alert-danger">
+								<strong>Login Error:</strong> Employee not found
+							</div>
+						<?php } ?>
+					</div>
 				</form>
 			</div>
 		</div>

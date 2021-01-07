@@ -20,10 +20,10 @@
 				</h3>
 			</div>
 			<div class="nav-item ml-auto">
-				<button class="btn btn-danger mx-5">Logout</button>
+				<a class="btn btn-danger mx-5" href="logout.php">Logout</a>
 			</div>
 		</div>
 
-		
+
 	</body>
 </html>
